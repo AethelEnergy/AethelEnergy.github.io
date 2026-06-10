@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aethel Energy — Clean Power for South African Business</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Cinzel+Decorative:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --black:         #050810;
+    --navy-deep:     #0A1628;
+    --navy:          #0D1F3C;
+    --royal:         #1A3A8F;
+    --royal-light:   #2452B8;
+    --electric:      #2563EB;
+    --sky:           #3B82F6;
+    --cyan:          #06B6D4;
+    --gold:          #C9A84C;
+    --gold-light:    #E8C96A;
+    --white:         #F0F4FF;
+    --muted:         #8899BB;
+    --card-bg:       #0C1A30;
+  }
+
+  html { scroll-behavior: smooth; }
+  body { background: var(--black); color: var(--white); font-family: 'Inter', sans-serif; overflow-x: hidden; }
+
+  /* ─────── NAV ─────── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 20px 56px;
+    display: flex; align-items: center; justify-content: space-between;
+    transition: background 0.4s, padding 0.4s;
+  }
+  nav.scrolled {
+    background: rgba(5,8,16,0.9);
+    backdrop-filter: blur(18px);
+    padding: 13px 56px;
+    border-bottom: 1px solid rgba(26,58,143,0.3);
+  }
+  .nav-brand { display: flex; flex-direction: column; gap: 1px; text-decoration: none; }
+  .nav-brand-main {
+    font-family: 'Cinzel', serif; font-size: 1.05rem; font-weight: 700;
+    background: linear-gradient(120deg, #fff 0%, var(--sky) 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  }
+  .nav-brand-sub { font-size: 0.58rem; letter-spacing: 0.28em; color: var(--gold); text-transform: uppercase; }
+  .nav-links { display: flex; gap: 36px; list-style: none; }
+  .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.74rem; letter-spacing: 0.14em; text-transform: uppercase; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--white); }
+  .nav-cta {
+    padding: 9px 24px;
+    background: linear-gradient(135deg, var(--royal) 0%, var(--electric) 100%);
+    color: var(--white); text-decoration: none;
+    font-family: 'Cinzel', serif; font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase;
+    transition: opacity 0.2s;
+  }
+  .nav-cta:hover { opacity: 0.85; }
+
+  /* ─────── HERO ─────── */
+  #hero {
+    position: relative; width: 100vw; height: 100vh;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    overflow: hidden;
+  }
+
+  #grid-canvas { position: absolute; inset: 0; z-index: 0; opacity: 0.55; }
+
+  .hero-glow {
+    position: absolute; border-radius: 50%; filter: blur(100px); pointer-events: none;
+  }
+  .glow-1 { width: 700px; height: 500px; background: var(--royal); opacity: 0.12; top: -120px; left: -150px; animation: glowDrift 20s ease-in-out infinite alternate; }
+  .glow-2 { width: 400px; height: 400px; background: var(--electric); opacity: 0.09; bottom: -80px; right: -60px; animation: glowDrift 25s ease-in-out infinite alternate-reverse; }
+  .glow-3 { width: 200px; height: 200px; background: var(--cyan); opacity: 0.12; top: 50%; left: 55%; animation: glowDrift 14s ease-in-out infinite alternate; }
+  @keyframes glowDrift { from { transform: translate(0,0); } to { transform: translate(24px,18px); } }
+
+  .hero-content { position: relative; z-index: 2; text-align: center; display: flex; flex-direction: column; align-items: center; }
+
+  .hero-eyebrow {
+    font-size: 0.68rem; letter-spacing: 0.36em; color: var(--cyan); text-transform: uppercase;
+    margin-bottom: 20px; opacity: 0; animation: fadeUp 0.9s 0.4s ease forwards;
+  }
+  .hero-headline {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(2.6rem, 5.5vw, 5rem);
+    font-weight: 700; line-height: 1.08; letter-spacing: 0.02em;
+    opacity: 0; animation: fadeUp 1s 0.65s ease forwards;
+  }
+  .hero-headline .line-1 { display: block; color: var(--white); }
+  .hero-headline .line-2 {
+    display: block;
+    background: linear-gradient(120deg, var(--sky) 0%, var(--cyan) 55%, var(--gold-light) 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  }
+
+  .hero-sub {
+    font-size: clamp(0.88rem, 1.5vw, 1rem); color: var(--muted);
+    line-height: 1.75; max-width: 560px; margin-top: 20px;
+    opacity: 0; animation: fadeUp 1s 0.9s ease forwards;
+  }
+
+  .hero-rule {
+    display: flex; align-items: center; gap: 16px; margin: 30px 0;
+    opacity: 0; animation: fadeUp 0.9s 1.1s ease forwards;
+  }
+  .hero-rule .rl { width: 70px; height: 1px; background: linear-gradient(to right, transparent, var(--electric)); }
+  .hero-rule .rr { background: linear-gradient(to left, transparent, var(--electric)); }
+  .hero-rule .dot { width: 5px; height: 5px; background: var(--electric); border-radius: 50%; box-shadow: 0 0 8px var(--electric); }
+
+  .hero-btns {
+    display: flex; gap: 14px; align-items: center;
+    opacity: 0; animation: fadeUp 0.9s 1.3s ease forwards;
+  }
+  .btn-primary {
+    padding: 14px 38px;
+    background: linear-gradient(135deg, var(--royal) 0%, var(--electric) 100%);
+    color: var(--white); text-decoration: none;
+    font-family: 'Cinzel', serif; font-size: 0.76rem; letter-spacing: 0.18em; text-transform: uppercase;
+    transition: opacity 0.25s; display: inline-flex; align-items: center; gap: 10px;
+  }
+  .btn-primary:hover { opacity: 0.85; }
+  .btn-ghost {
+    padding: 14px 38px;
+    border: 1px solid rgba(37,99,235,0.5);
+    color: var(--white); text-decoration: none;
+    font-family: 'Cinzel', serif; font-size: 0.76rem; letter-spacing: 0.18em; text-transform: uppercase;
+    transition: border-color 0.25s, background 0.25s; display: inline-flex; align-items: center; gap: 10px;
+  }
+  .btn-ghost:hover { border-color: var(--electric); background: rgba(37,99,235,0.08); }
+
+  .hero-metrics {
+    position: absolute; bottom: 44px; left: 0; right: 0;
+    display: flex; justify-content: center; gap: 0; z-index: 2;
+    opacity: 0; animation: fadeIn 1s 2s ease forwards;
+  }
+  .metric-item {
+    padding: 18px 40px; border: 1px solid rgba(26,58,143,0.3);
+    border-right: none; background: rgba(10,22,40,0.7); backdrop-filter: blur(10px);
+    text-align: center;
+  }
+  .metric-item:last-child { border-right: 1px solid rgba(26,58,143,0.3); }
+  .metric-val { font-family: 'Cinzel', serif; font-size: 1.4rem; font-weight: 700; color: var(--sky); }
+  .metric-label { font-size: 0.63rem; letter-spacing: 0.2em; color: var(--muted); text-transform: uppercase; margin-top: 3px; }
+
+  @keyframes fadeUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+  @keyframes fadeIn  { from { opacity:0; } to { opacity:1; } }
+
+  /* ─────── SHARED LAYOUT ─────── */
+  .page-section { padding: 110px 56px; max-width: 1280px; margin: 0 auto; }
+  .section-divider { border: none; border-top: 1px solid rgba(26,58,143,0.22); }
+  .tag { font-size: 0.67rem; letter-spacing: 0.33em; color: var(--gold); text-transform: uppercase; display: block; margin-bottom: 14px; }
+  h2 { font-family: 'Cinzel', serif; font-size: clamp(1.7rem, 3vw, 2.6rem); font-weight: 600; line-height: 1.2; }
+  h2 .accent { color: var(--sky); }
+  .body-copy { color: var(--muted); line-height: 1.85; font-size: 0.93rem; margin-top: 16px; }
+
+  /* ─────── WHAT IS WHEELING ─────── */
+  #wheeling { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+
+  .wheeling-diagram {
+    position: relative; height: 380px;
+    background: var(--card-bg); border: 1px solid rgba(26,58,143,0.35);
+  }
+  .wheeling-diagram::before {
+    content: ''; position: absolute; top: -1px; left: 24px; right: 24px; height: 2px;
+    background: linear-gradient(to right, transparent, var(--electric), transparent);
+  }
+  .wd-inner { position: absolute; inset: 0; padding: 32px; }
+  .flow-row { display: flex; align-items: center; justify-content: space-between; height: 100%; }
+  .flow-node {
+    display: flex; flex-direction: column; align-items: center; gap: 10px;
+    flex: 0 0 auto;
+  }
+  .flow-icon {
+    width: 64px; height: 64px; border: 1px solid; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .flow-icon.gen { border-color: var(--gold); background: rgba(201,168,76,0.08); color: var(--gold); }
+  .flow-icon.grid { border-color: var(--electric); background: rgba(37,99,235,0.08); color: var(--electric); }
+  .flow-icon.biz { border-color: var(--cyan); background: rgba(6,182,212,0.08); color: var(--cyan); }
+  .flow-label { font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); text-align: center; max-width: 70px; line-height: 1.4; }
+  .flow-arrow { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 0 8px; }
+  .flow-line { height: 2px; width: 100%; background: linear-gradient(to right, var(--royal), var(--electric)); position: relative; }
+  .flow-line::after {
+    content: ''; position: absolute; right: -1px; top: 50%; transform: translateY(-50%);
+    border-left: 7px solid var(--electric); border-top: 4px solid transparent; border-bottom: 4px solid transparent;
+  }
+  .flow-desc { font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); text-align: center; }
+  .flow-pulse {
+    position: absolute; width: 8px; height: 8px; background: var(--electric); border-radius: 50%;
+    box-shadow: 0 0 10px var(--electric);
+    animation: flowPulse linear infinite;
+  }
+  @keyframes flowPulse { from { left: 0; opacity: 1; } to { left: calc(100% - 8px); opacity: 0.3; } }
+
+  .wheeling-points { list-style: none; margin-top: 28px; display: flex; flex-direction: column; gap: 14px; }
+  .wheeling-points li { display: flex; align-items: flex-start; gap: 12px; font-size: 0.88rem; color: var(--muted); line-height: 1.7; }
+  .wheeling-points li::before {
+    content: ''; flex-shrink: 0; margin-top: 8px;
+    width: 5px; height: 5px; background: var(--electric); border-radius: 50%; box-shadow: 0 0 6px var(--electric);
+  }
+
+  /* ─────── HOW IT WORKS (PROCESS) ─────── */
+  #process { text-align: center; }
+  #process .intro { max-width: 580px; margin: 0 auto 64px; }
+
+  .process-track {
+    position: relative; display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+  }
+  .process-track::before {
+    content: ''; position: absolute;
+    top: 48px; left: 12.5%; right: 12.5%; height: 1px;
+    background: linear-gradient(to right, var(--royal), var(--electric), var(--cyan), var(--gold));
+    z-index: 0;
+  }
+
+  .process-step { padding: 0 20px; position: relative; z-index: 1; }
+  .step-circle {
+    width: 96px; height: 96px; border-radius: 50%; margin: 0 auto 24px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Cinzel', serif; font-size: 1.4rem; font-weight: 700;
+    border: 1px solid; position: relative; background: var(--black);
+    transition: transform 0.3s;
+  }
+  .process-step:hover .step-circle { transform: scale(1.06); }
+  .step-circle.s1 { border-color: var(--royal); color: var(--sky); box-shadow: 0 0 20px rgba(26,58,143,0.3); }
+  .step-circle.s2 { border-color: var(--electric); color: var(--electric); box-shadow: 0 0 20px rgba(37,99,235,0.25); }
+  .step-circle.s3 { border-color: var(--cyan); color: var(--cyan); box-shadow: 0 0 20px rgba(6,182,212,0.2); }
+  .step-circle.s4 { border-color: var(--gold); color: var(--gold); box-shadow: 0 0 20px rgba(201,168,76,0.2); }
+  .step-title { font-family: 'Cinzel', serif; font-size: 0.88rem; font-weight: 600; color: var(--white); margin-bottom: 10px; }
+  .step-body { font-size: 0.82rem; color: var(--muted); line-height: 1.75; }
+
+  /* ─────── WHO WE SERVE ─────── */
+  #serve { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+  .serve-left .body-copy { max-width: 440px; }
+
+  .serve-cards { display: flex; flex-direction: column; gap: 2px; }
+  .serve-card {
+    background: var(--card-bg); border: 1px solid rgba(26,58,143,0.3);
+    padding: 28px 32px; display: flex; gap: 20px; align-items: flex-start;
+    transition: border-color 0.3s;
+  }
+  .serve-card:hover { border-color: rgba(37,99,235,0.5); }
+  .serve-card-icon { flex-shrink: 0; color: var(--sky); margin-top: 2px; }
+  .serve-card-title { font-family: 'Cinzel', serif; font-size: 0.9rem; font-weight: 600; color: var(--white); margin-bottom: 6px; }
+  .serve-card-body { font-size: 0.83rem; color: var(--muted); line-height: 1.7; }
+
+  .partnership-badge {
+    margin-top: 32px; padding: 24px 28px;
+    border: 1px solid rgba(201,168,76,0.3); background: rgba(201,168,76,0.05);
+    display: flex; gap: 16px; align-items: flex-start;
+  }
+  .badge-icon { color: var(--gold); flex-shrink: 0; }
+  .badge-title { font-family: 'Cinzel', serif; font-size: 0.85rem; color: var(--gold); margin-bottom: 5px; }
+  .badge-body { font-size: 0.82rem; color: var(--muted); line-height: 1.7; }
+
+  /* ─────── EIDP PLATFORM REDIRECT ─────── */
+  #eidp {
+    background: linear-gradient(135deg, var(--navy-deep) 0%, rgba(26,58,143,0.15) 100%);
+    border-top: 1px solid rgba(26,58,143,0.3);
+    border-bottom: 1px solid rgba(26,58,143,0.3);
+  }
+  .eidp-inner {
+    max-width: 1280px; margin: 0 auto; padding: 110px 56px;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+  }
+  .eidp-left .tag { color: var(--cyan); }
+  .eidp-left h2 { }
+  .eidp-left h2 .accent { color: var(--cyan); }
+  .eidp-left .body-copy { margin-bottom: 32px; }
+
+  .eidp-feature-list { list-style: none; display: flex; flex-direction: column; gap: 12px; margin-bottom: 36px; }
+  .eidp-feature-list li {
+    display: flex; align-items: center; gap: 12px;
+    font-size: 0.86rem; color: var(--white);
+  }
+  .eidp-feature-list li .check {
+    width: 20px; height: 20px; border-radius: 50%; border: 1px solid var(--cyan);
+    background: rgba(6,182,212,0.1); display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .eidp-feature-list li .check svg { color: var(--cyan); }
+
+  .eidp-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+  .btn-eidp-primary {
+    padding: 15px 40px;
+    background: linear-gradient(135deg, #0e7490 0%, var(--cyan) 100%);
+    color: var(--black); text-decoration: none;
+    font-family: 'Cinzel', serif; font-size: 0.76rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
+    display: inline-flex; align-items: center; gap: 10px; transition: opacity 0.25s;
+  }
+  .btn-eidp-primary:hover { opacity: 0.87; }
+  .btn-eidp-secondary {
+    padding: 15px 30px; border: 1px solid rgba(6,182,212,0.4);
+    color: var(--cyan); text-decoration: none;
+    font-family: 'Cinzel', serif; font-size: 0.76rem; letter-spacing: 0.18em; text-transform: uppercase;
+    display: inline-flex; align-items: center; gap: 10px;
+    transition: background 0.25s, border-color 0.25s;
+  }
+  .btn-eidp-secondary:hover { background: rgba(6,182,212,0.08); border-color: var(--cyan); }
+
+  .eidp-right { position: relative; }
+  .eidp-platform-card {
+    background: var(--black); border: 1px solid rgba(6,182,212,0.3);
+    padding: 0; overflow: hidden; position: relative;
+  }
+  .eidp-platform-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(to right, var(--electric), var(--cyan));
+  }
+  .eidp-card-header {
+    padding: 20px 24px; border-bottom: 1px solid rgba(26,58,143,0.3);
+    display: flex; align-items: center; gap: 12px;
+    background: rgba(6,182,212,0.05);
+  }
+  .eidp-card-header .dot-r { width: 10px; height: 10px; border-radius: 50%; background: #ef4444; }
+  .eidp-card-header .dot-y { width: 10px; height: 10px; border-radius: 50%; background: var(--gold); }
+  .eidp-card-header .dot-g { width: 10px; height: 10px; border-radius: 50%; background: #22c55e; }
+  .eidp-card-header .url-bar {
+    flex: 1; background: rgba(26,58,143,0.2); border: 1px solid rgba(26,58,143,0.4);
+    padding: 6px 14px; font-size: 0.72rem; color: var(--cyan); letter-spacing: 0.06em;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .eidp-card-body { padding: 32px 28px; }
+  .eidp-screen-title { font-family: 'Cinzel', serif; font-size: 1.1rem; color: var(--white); margin-bottom: 6px; }
+  .eidp-screen-sub { font-size: 0.78rem; color: var(--muted); margin-bottom: 24px; }
+  .eidp-mock-fields { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
+  .eidp-mock-field {
+    background: rgba(26,58,143,0.15); border: 1px solid rgba(26,58,143,0.3);
+    padding: 10px 14px; font-size: 0.75rem; color: var(--muted);
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .eidp-mock-field .val { color: var(--sky); font-family: 'Cinzel', serif; font-size: 0.78rem; }
+  .eidp-mock-result {
+    background: rgba(6,182,212,0.08); border: 1px solid rgba(6,182,212,0.3);
+    padding: 18px 16px; text-align: center;
+  }
+  .eidp-mock-result .res-label { font-size: 0.65rem; letter-spacing: 0.2em; color: var(--cyan); text-transform: uppercase; }
+  .eidp-mock-result .res-val { font-family: 'Cinzel', serif; font-size: 1.6rem; color: var(--cyan); margin-top: 4px; }
+  .eidp-mock-result .res-sub { font-size: 0.68rem; color: var(--muted); margin-top: 3px; }
+  .eidp-card-cta {
+    display: block; width: 100%; text-align: center;
+    padding: 14px; background: linear-gradient(135deg, #0e7490, var(--cyan));
+    color: var(--black); font-family: 'Cinzel', serif; font-size: 0.72rem; font-weight: 700;
+    letter-spacing: 0.18em; text-transform: uppercase; text-decoration: none;
+    transition: opacity 0.2s; margin-top: 16px; display: flex; align-items: center; justify-content: center; gap: 8px;
+  }
+  .eidp-card-cta:hover { opacity: 0.85; }
+  .platform-note { font-size: 0.7rem; color: var(--muted); text-align: center; margin-top: 14px; letter-spacing: 0.05em; }
+  .platform-note a { color: var(--cyan); text-decoration: none; }
+
+  /* ─────── WHY AETHEL ─────── */
+  #why { }
+  #why .intro { max-width: 540px; }
+  .why-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-top: 56px; }
+  .why-card {
+    background: var(--card-bg); border: 1px solid rgba(26,58,143,0.3);
+    padding: 44px 36px; position: relative; overflow: hidden;
+    transition: border-color 0.3s;
+  }
+  .why-card::after {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    opacity: 0; transition: opacity 0.3s;
+  }
+  .why-card:hover { border-color: rgba(37,99,235,0.45); }
+  .why-card:hover::after { opacity: 1; }
+  .why-card:nth-child(1)::after { background: linear-gradient(to right, var(--royal), var(--electric)); }
+  .why-card:nth-child(2)::after { background: linear-gradient(to right, var(--electric), var(--cyan)); }
+  .why-card:nth-child(3)::after { background: linear-gradient(to right, var(--cyan), var(--gold)); }
+  .why-card:nth-child(4)::after { background: linear-gradient(to right, var(--gold), var(--electric)); }
+  .why-card:nth-child(5)::after { background: linear-gradient(to right, var(--electric), var(--sky)); }
+  .why-card:nth-child(6)::after { background: linear-gradient(to right, var(--royal), var(--cyan)); }
+  .why-icon { width: 40px; height: 40px; color: var(--sky); margin-bottom: 22px; }
+  .why-title { font-family: 'Cinzel', serif; font-size: 0.95rem; font-weight: 600; color: var(--white); margin-bottom: 10px; }
+  .why-body { font-size: 0.83rem; color: var(--muted); line-height: 1.78; }
+
+  /* ─────── CONTACT ─────── */
+  #contact { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+  .contact-left h2 { margin-bottom: 16px; }
+  .contact-left .body-copy { margin-bottom: 40px; }
+
+  .contact-details { display: flex; flex-direction: column; gap: 18px; }
+  .cd-item { display: flex; gap: 16px; align-items: flex-start; }
+  .cd-icon { width: 38px; height: 38px; border: 1px solid rgba(26,58,143,0.5); background: rgba(26,58,143,0.15); display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: var(--sky); }
+  .cd-label { font-size: 0.65rem; letter-spacing: 0.18em; color: var(--muted); text-transform: uppercase; margin-bottom: 2px; }
+  .cd-val { font-size: 0.9rem; color: var(--white); }
+
+  .contact-form { display: flex; flex-direction: column; gap: 14px; }
+  .f-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .fg { display: flex; flex-direction: column; gap: 6px; }
+  .fg label { font-size: 0.66rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
+  .fg input, .fg select, .fg textarea {
+    background: var(--card-bg); border: 1px solid rgba(26,58,143,0.4);
+    color: var(--white); padding: 11px 14px;
+    font-family: 'Inter', sans-serif; font-size: 0.86rem; outline: none;
+    transition: border-color 0.2s; resize: none; appearance: none;
+  }
+  .fg input::placeholder, .fg textarea::placeholder { color: rgba(136,153,187,0.5); }
+  .fg input:focus, .fg select:focus, .fg textarea:focus { border-color: var(--electric); }
+  .fg select option { background: var(--navy-deep); }
+  .submit-btn {
+    align-self: flex-start; padding: 13px 36px;
+    background: linear-gradient(135deg, var(--royal), var(--electric));
+    border: none; color: var(--white);
+    font-family: 'Cinzel', serif; font-size: 0.74rem; letter-spacing: 0.2em; text-transform: uppercase;
+    cursor: pointer; transition: opacity 0.2s;
+  }
+  .submit-btn:hover { opacity: 0.85; }
+
+  /* ─────── FOOTER ─────── */
+  .footer-wrap { border-top: 1px solid rgba(26,58,143,0.25); }
+  footer { max-width: 1280px; margin: 0 auto; padding: 44px 56px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px; }
+  .footer-brand { display: flex; flex-direction: column; gap: 4px; }
+  .footer-brand-main { font-family: 'Cinzel', serif; font-size: 1rem; font-weight: 700; background: linear-gradient(120deg, #fff, var(--sky)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .footer-brand-sub { font-size: 0.6rem; letter-spacing: 0.22em; color: var(--gold); text-transform: uppercase; }
+  .footer-copy { font-size: 0.72rem; color: var(--muted); }
+  .footer-parent { font-size: 0.68rem; color: var(--muted); }
+  .footer-parent a { color: var(--sky); text-decoration: none; }
+  .footer-parent a:hover { color: var(--gold); }
+  .footer-links { display: flex; gap: 26px; list-style: none; }
+  .footer-links a { font-size: 0.7rem; color: var(--muted); text-decoration: none; letter-spacing: 0.1em; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--sky); }
+
+  /* ─────── REVEAL ─────── */
+  .reveal { opacity: 0; transform: translateY(26px); transition: opacity 0.75s ease, transform 0.75s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .rd1 { transition-delay: 0.1s; } .rd2 { transition-delay: 0.2s; } .rd3 { transition-delay: 0.3s; } .rd4 { transition-delay: 0.4s; }
+
+  /* ─────── RESPONSIVE ─────── */
+  @media (max-width: 960px) {
+    .page-section { padding: 80px 24px; }
+    nav { padding: 16px 24px; } nav.scrolled { padding: 12px 24px; }
+    .nav-links { display: none; }
+    .hero-metrics { display: none; }
+    #wheeling, #serve, #contact { grid-template-columns: 1fr; gap: 48px; }
+    .process-track { grid-template-columns: 1fr 1fr; }
+    .process-track::before { display: none; }
+    .why-grid { grid-template-columns: 1fr 1fr; }
+    .eidp-inner { grid-template-columns: 1fr; gap: 48px; padding: 80px 24px; }
+    footer { flex-direction: column; align-items: flex-start; }
+    .f-row { grid-template-columns: 1fr; }
+    .hero-btns { flex-direction: column; }
+  }
+  @media (max-width: 600px) {
+    .why-grid { grid-template-columns: 1fr; }
+    .process-track { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <a href="#hero" class="nav-brand">
+    <span class="nav-brand-main">Aethel Energy</span>
+    <span class="nav-brand-sub">An Aethelwine Homes Company</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#wheeling">Wheeling</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="#serve">Who We Serve</a></li>
+    <li><a href="#eidp">EIDP Platform</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#eidp" class="nav-cta">Start on EIDP</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <canvas id="grid-canvas"></canvas>
+  <div class="hero-glow glow-1"></div>
+  <div class="hero-glow glow-2"></div>
+  <div class="hero-glow glow-3"></div>
+
+  <div class="hero-content">
+    <p class="hero-eyebrow">Wheeling PPA · C&amp;I · South Africa</p>
+    <h1 class="hero-headline">
+      <span class="line-1">Clean energy.</span>
+      <span class="line-2">Your bottom line.</span>
+    </h1>
+    <p class="hero-sub">Aethel Energy structures Power Purchase Agreements that deliver renewable electricity directly to your business — at rates below Eskom, with zero capital outlay and contractual certainty.</p>
+    <div class="hero-rule">
+      <span class="rl"></span><span class="dot"></span><span class="dot" style="opacity:.4;transform:scale(.6);"></span><span class="dot"></span><span class="rr"></span>
+    </div>
+    <div class="hero-btns">
+      <a href="#eidp" class="btn-primary">
+        Calculate My Savings
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+      </a>
+      <a href="#wheeling" class="btn-ghost">How Wheeling Works</a>
+    </div>
+  </div>
+
+  <div class="hero-metrics">
+    <div class="metric-item">
+      <div class="metric-val">20yr</div>
+      <div class="metric-label">PPA Contract Horizon</div>
+    </div>
+    <div class="metric-item">
+      <div class="metric-val">0</div>
+      <div class="metric-label">Capital Outlay Required</div>
+    </div>
+    <div class="metric-item">
+      <div class="metric-val">C&amp;I</div>
+      <div class="metric-label">Commercial &amp; Industrial</div>
+    </div>
+    <div class="metric-item">
+      <div class="metric-val">Fixed</div>
+      <div class="metric-label">Tariff Escalation Rate</div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT IS WHEELING -->
+<hr class="section-divider">
+<div class="page-section" id="wheeling">
+  <div class="reveal">
+    <span class="tag">How It Works</span>
+    <h2>Electricity delivered<br>via the <span class="accent">national grid</span></h2>
+    <p class="body-copy">Wheeling is the mechanism that allows renewable energy generated at a remote solar or wind facility to be transmitted across Eskom's distribution network directly to your business premises — no on-site panels required.</p>
+    <ul class="wheeling-points">
+      <li>The generator produces clean energy at a licensed renewable facility</li>
+      <li>Power flows through the existing Eskom grid infrastructure (the "wire")</li>
+      <li>Your business receives that energy at an agreed, fixed PPA tariff</li>
+      <li>You pay Eskom a wheeling charge for use of the network — but your net cost is still below standard tariff</li>
+      <li>Aethel Energy originate, structures, and manages the entire agreement on your behalf</li>
+    </ul>
+  </div>
+  <div class="wheeling-diagram reveal rd2">
+    <div class="wd-inner">
+      <div class="flow-row">
+        <div class="flow-node">
+          <div class="flow-icon gen">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+              <circle cx="14" cy="14" r="5" stroke="currentColor" stroke-width="1.4"/>
+              <path d="M14 2v3M14 23v3M2 14h3M23 14h3M5.6 5.6l2.1 2.1M20.3 20.3l2.1 2.1M5.6 22.4l2.1-2.1M20.3 7.7l2.1-2.1" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <span class="flow-label">Renewable Generator</span>
+        </div>
+        <div class="flow-arrow">
+          <div class="flow-line" style="position:relative;">
+            <div class="flow-pulse" style="animation-duration:2.2s;"></div>
+          </div>
+          <span class="flow-desc">Power injected</span>
+        </div>
+        <div class="flow-node">
+          <div class="flow-icon grid">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+              <rect x="4" y="10" width="20" height="12" rx="1" stroke="currentColor" stroke-width="1.4"/>
+              <path d="M10 10V7M18 10V7M7 22v3M21 22v3M4 16h20" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <span class="flow-label">Eskom Grid Network</span>
+        </div>
+        <div class="flow-arrow">
+          <div class="flow-line" style="position:relative;">
+            <div class="flow-pulse" style="animation-duration:2.2s;animation-delay:0.8s;"></div>
+          </div>
+          <span class="flow-desc">Wheeled to site</span>
+        </div>
+        <div class="flow-node">
+          <div class="flow-icon biz">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+              <rect x="5" y="10" width="18" height="14" rx="1" stroke="currentColor" stroke-width="1.4"/>
+              <path d="M10 10V7a4 4 0 018 0v3" stroke="currentColor" stroke-width="1.4"/>
+              <path d="M14 16v3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+              <circle cx="14" cy="15" r="1.5" fill="currentColor"/>
+            </svg>
+          </div>
+          <span class="flow-label">Your Business Premises</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PROCESS -->
+<hr class="section-divider">
+<div class="page-section" id="process">
+  <div class="intro reveal">
+    <span class="tag">Our Process</span>
+    <h2>From enquiry to<br><span class="accent">live contract</span></h2>
+    <p class="body-copy" style="margin: 0 auto;">A structured four-stage journey that takes your business from energy assessment to a signed, operational wheeling agreement — with Aethel Energy managing every step.</p>
+  </div>
+  <div class="process-track">
+    <div class="process-step reveal rd1">
+      <div class="step-circle s1">01</div>
+      <p class="step-title">Assessment</p>
+      <p class="step-body">We analyse your electricity bills, consumption profile, and grid connection to determine wheeling eligibility and potential savings.</p>
+    </div>
+    <div class="process-step reveal rd2">
+      <div class="step-circle s2">02</div>
+      <p class="step-title">Proposal</p>
+      <p class="step-body">A tailored PPA term sheet is structured — setting your fixed tariff, escalation rate, contract duration, and wheeling cost model.</p>
+    </div>
+    <div class="process-step reveal rd3">
+      <div class="step-circle s3">03</div>
+      <p class="step-title">Onboarding</p>
+      <p class="step-body">NERSA registration, municipality sign-off, and network access agreements are coordinated through our EIDP platform and Red Rocket partnership.</p>
+    </div>
+    <div class="process-step reveal rd4">
+      <div class="step-circle s4">04</div>
+      <p class="step-title">Go Live</p>
+      <p class="step-body">Your meter is reconfigured, the PPA goes active, and you begin receiving renewable energy — and seeing reduced electricity costs — from day one.</p>
+    </div>
+  </div>
+</div>
+
+<!-- WHO WE SERVE -->
+<hr class="section-divider">
+<div class="page-section" id="serve">
+  <div class="serve-left reveal">
+    <span class="tag">Who We Serve</span>
+    <h2>Built for<br><span class="accent">commercial</span> &amp;<br>industrial buyers</h2>
+    <p class="body-copy">Wheeling PPAs are most impactful for businesses with meaningful electricity spend — those whose Eskom bill is a cost centre, not a rounding error.</p>
+    <div class="partnership-badge">
+      <div class="badge-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div>
+        <p class="badge-title">Red Rocket Trading Partnership</p>
+        <p class="badge-body">All Aethel Energy PPAs are originated and executed in partnership with Red Rocket Trading — one of South Africa's leading licensed independent power producers — ensuring regulatory compliance, grid access, and generation credibility.</p>
+      </div>
+    </div>
+  </div>
+  <div class="serve-cards reveal rd2">
+    <div class="serve-card">
+      <div class="serve-card-icon">
+        <svg width="26" height="26" viewBox="0 0 26 26" fill="none"><rect x="3" y="8" width="20" height="14" rx="1" stroke="currentColor" stroke-width="1.3"/><path d="M8 8V6a5 5 0 0110 0v2" stroke="currentColor" stroke-width="1.3"/><path d="M13 14v3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+      </div>
+      <div>
+        <p class="serve-card-title">Manufacturing &amp; Warehousing</p>
+        <p class="serve-card-body">High-consumption production facilities with consistent daytime loads are ideal wheeling candidates — predictable demand means predictable savings.</p>
+      </div>
+    </div>
+    <div class="serve-card">
+      <div class="serve-card-icon">
+        <svg width="26" height="26" viewBox="0 0 26 26" fill="none"><rect x="3" y="5" width="20" height="16" rx="1" stroke="currentColor" stroke-width="1.3"/><path d="M3 11h20M9 5v16M17 5v16" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+      </div>
+      <div>
+        <p class="serve-card-title">Retail &amp; Commercial Property</p>
+        <p class="serve-card-body">Shopping centres, office parks, and retail chains with large energy footprints benefit from long-term tariff certainty and green energy credentials.</p>
+      </div>
+    </div>
+    <div class="serve-card">
+      <div class="serve-card-icon">
+        <svg width="26" height="26" viewBox="0 0 26 26" fill="none"><path d="M13 3L4 8v5c0 5.25 3.84 10.15 9 11.35C18.16 23.15 22 18.25 22 13V8L13 3z" stroke="currentColor" stroke-width="1.3" fill="none"/><path d="M9 13l3 3 5-5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div>
+        <p class="serve-card-title">Agriculture &amp; Cold Storage</p>
+        <p class="serve-card-body">Farms, pack houses, and cold chain operators face volatile electricity costs — a fixed-tariff PPA provides the margin protection their operations require.</p>
+      </div>
+    </div>
+    <div class="serve-card">
+      <div class="serve-card-icon">
+        <svg width="26" height="26" viewBox="0 0 26 26" fill="none"><circle cx="13" cy="13" r="10" stroke="currentColor" stroke-width="1.3"/><path d="M13 8v5l3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div>
+        <p class="serve-card-title">Hospitality &amp; Healthcare</p>
+        <p class="serve-card-body">Hotels, hospitals, and clinics require uninterrupted, cost-efficient power. A wheeling PPA delivers predictable billing without compromising supply quality.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- EIDP PLATFORM REDIRECT -->
+<section id="eidp">
+  <div class="eidp-inner">
+    <div class="eidp-left reveal">
+      <span class="tag">Powered by EIDP</span>
+      <h2>Your savings live<br>on the <span class="accent">EIDP platform</span></h2>
+      <p class="body-copy">We don't run a savings calculator on this page — because our dedicated EIDP platform does it better. The Energy Intelligence &amp; Deal Portal is where you model your wheeling savings, generate CFO-ready reports, and begin your formal onboarding as a PPA offtaker.</p>
+      <ul class="eidp-feature-list">
+        <li>
+          <span class="check"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1.5 6L4 8.5 9.5 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          Wheeling savings calculator — enter your monthly kWh and current tariff
+        </li>
+        <li>
+          <span class="check"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1.5 6L4 8.5 9.5 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          Downloadable CFO-ready PDF savings report with 5-year cost projection
+        </li>
+        <li>
+          <span class="check"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1.5 6L4 8.5 9.5 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          Offtaker onboarding portal — submit your site details and begin the PPA process
+        </li>
+        <li>
+          <span class="check"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1.5 6L4 8.5 9.5 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          Capacity overview — see available wheeling allocations in your region
+        </li>
+        <li>
+          <span class="check"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1.5 6L4 8.5 9.5 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          Secure document submission and deal tracking dashboard
+        </li>
+      </ul>
+      <div class="eidp-btns">
+        <a href="https://eidp.co.za" target="_blank" rel="noopener" class="btn-eidp-primary">
+          Open EIDP Platform
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </a>
+        <a href="https://eidp.co.za" target="_blank" rel="noopener" class="btn-eidp-secondary">
+          Begin Onboarding
+          <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M6.5 1v11M1 6.5h11" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+        </a>
+      </div>
+    </div>
+    <div class="eidp-right reveal rd2">
+      <div class="eidp-platform-card">
+        <div class="eidp-card-header">
+          <span class="dot-r"></span><span class="dot-y"></span><span class="dot-g"></span>
+          <div class="url-bar">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><rect x="1" y="4" width="10" height="7" rx="1" stroke="currentColor" stroke-width="1.2"/><path d="M4 4V3a2 2 0 014 0v1" stroke="currentColor" stroke-width="1.2"/></svg>
+            eidp.co.za
+          </div>
+        </div>
+        <div class="eidp-card-body">
+          <p class="eidp-screen-title">Wheeling Savings Calculator</p>
+          <p class="eidp-screen-sub">Energy Intelligence &amp; Deal Portal — powered by Aethel Energy</p>
+          <div class="eidp-mock-fields">
+            <div class="eidp-mock-field">
+              <span>Monthly Consumption (kWh)</span>
+              <span class="val">450,000 kWh</span>
+            </div>
+            <div class="eidp-mock-field">
+              <span>Current Tariff (R/kWh)</span>
+              <span class="val">R 2.84</span>
+            </div>
+            <div class="eidp-mock-field">
+              <span>Contract Term</span>
+              <span class="val">20 Years</span>
+            </div>
+          </div>
+          <div class="eidp-mock-result">
+            <p class="res-label">Estimated Annual Saving</p>
+            <p class="res-val">R 1,296,000</p>
+            <p class="res-sub">based on indicative PPA tariff vs. Eskom standard tariff</p>
+          </div>
+          <a href="https://eidp.co.za" target="_blank" rel="noopener" class="eidp-card-cta">
+            Calculate My Actual Savings
+            <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M1 6.5h11M6.5 1l5.5 5.5-5.5 5.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+      </div>
+      <p class="platform-note">All calculations and offtaker onboarding handled securely at <a href="https://eidp.co.za" target="_blank">eidp.co.za</a></p>
+    </div>
+  </div>
+</section>
+
+<!-- WHY AETHEL -->
+<hr class="section-divider">
+<div class="page-section" id="why">
+  <div class="intro reveal">
+    <span class="tag">Why Aethel Energy</span>
+    <h2>Deal origination with<br><span class="accent">commercial discipline</span></h2>
+    <p class="body-copy">We're not a generator, an EPC contractor, or a consultancy. We are a specialist deal originator — our value is structuring the right PPA for your business, and managing the relationship that delivers it.</p>
+  </div>
+  <div class="why-grid">
+    <div class="why-card reveal rd1">
+      <svg class="why-icon" viewBox="0 0 40 40" fill="none">
+        <path d="M20 6L6 13v7c0 7.73 5.96 14.96 14 16.93C28.04 34.96 34 27.73 34 20v-7L20 6z" stroke="currentColor" stroke-width="1.4" fill="none"/>
+        <path d="M14 20l4 4 8-8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <p class="why-title">Zero Capital Risk</p>
+      <p class="why-body">No solar panels, no CAPEX, no balance sheet commitment. Your business accesses renewable energy purely through a supply agreement — not an asset purchase.</p>
+    </div>
+    <div class="why-card reveal rd2">
+      <svg class="why-icon" viewBox="0 0 40 40" fill="none">
+        <rect x="6" y="8" width="28" height="24" rx="2" stroke="currentColor" stroke-width="1.4"/>
+        <path d="M6 16h28M14 8v8M26 8v8" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+        <path d="M13 24h5M22 24h5M13 28h3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+      </svg>
+      <p class="why-title">Long-Term Tariff Certainty</p>
+      <p class="why-body">A PPA fixes your electricity tariff — with a pre-agreed annual escalation — for up to 20 years. Budget with confidence while Eskom tariffs continue to climb.</p>
+    </div>
+    <div class="why-card reveal rd3">
+      <svg class="why-icon" viewBox="0 0 40 40" fill="none">
+        <circle cx="20" cy="20" r="14" stroke="currentColor" stroke-width="1.4"/>
+        <path d="M20 12v8l5 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <p class="why-title">Managed End-to-End</p>
+      <p class="why-body">From initial assessment and municipality sign-off to NERSA compliance and metering — Aethel Energy coordinates the entire process, so your team doesn't have to.</p>
+    </div>
+    <div class="why-card reveal rd1">
+      <svg class="why-icon" viewBox="0 0 40 40" fill="none">
+        <path d="M8 32L16 16l8 8 6-12 2 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="32" cy="12" r="3" stroke="currentColor" stroke-width="1.3"/>
+      </svg>
+      <p class="why-title">Measurable Savings</p>
+      <p class="why-body">Before you commit to anything, the EIDP platform models your actual savings based on your consumption profile and current tariff — so the numbers are real, not indicative.</p>
+    </div>
+    <div class="why-card reveal rd2">
+      <svg class="why-icon" viewBox="0 0 40 40" fill="none">
+        <path d="M20 6l3.09 9.26L34 15.27l-7.27 5.64 2.73 9.09L20 24.8l-9.46 5.2 2.73-9.09L6 15.27l10.91.99L20 6z" stroke="currentColor" stroke-width="1.4" fill="rgba(37,99,235,0.1)" stroke-linejoin="round"/>
+      </svg>
+      <p class="why-title">Licensed Partner Network</p>
+      <p class="why-body">All deals flow through our partnership with Red Rocket Trading — a licensed IPP with an established generation portfolio and a track record in wheeling across South Africa.</p>
+    </div>
+    <div class="why-card reveal rd3">
+      <svg class="why-icon" viewBox="0 0 40 40" fill="none">
+        <circle cx="20" cy="16" r="7" stroke="currentColor" stroke-width="1.4"/>
+        <path d="M8 34c0-6.627 5.373-12 12-12s12 5.373 12 12" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+      </svg>
+      <p class="why-title">Dedicated Deal Originator</p>
+      <p class="why-body">You deal with one point of contact throughout. Aethel Energy is your advocate in the PPA structure — not a middleman incentivised by volume, but a partner invested in your outcome.</p>
+    </div>
+  </div>
+</div>
+
+<!-- CONTACT -->
+<hr class="section-divider">
+<div class="page-section" id="contact">
+  <div class="contact-left reveal">
+    <span class="tag">Get in Touch</span>
+    <h2>Let's build<br>your <span class="accent">energy deal</span></h2>
+    <p class="body-copy">If your business spends meaningfully on electricity and you want to explore what a wheeling PPA could save you — reach out. We'll do a rapid assessment and walk you through the numbers.</p>
+    <div class="contact-details">
+      <div class="cd-item">
+        <div class="cd-icon">
+          <svg width="17" height="17" viewBox="0 0 17 17" fill="none"><path d="M2.5 2.5h12v10a2 2 0 01-2 2H4.5a2 2 0 01-2-2v-10zM2.5 2.5l6 6 6-6" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+        </div>
+        <div>
+          <p class="cd-label">Email</p>
+          <p class="cd-val">energy@aethelwine.co.za</p>
+        </div>
+      </div>
+      <div class="cd-item">
+        <div class="cd-icon">
+          <svg width="17" height="17" viewBox="0 0 17 17" fill="none"><path d="M8.5 2C5.46 2 3 4.46 3 7.5c0 4.375 5.5 7.5 5.5 7.5S14 11.875 14 7.5C14 4.46 11.54 2 8.5 2z" stroke="currentColor" stroke-width="1.2"/><circle cx="8.5" cy="7.5" r="2" stroke="currentColor" stroke-width="1.2"/></svg>
+        </div>
+        <div>
+          <p class="cd-label">Location</p>
+          <p class="cd-val">Vaal Triangle, Gauteng, South Africa</p>
+        </div>
+      </div>
+      <div class="cd-item">
+        <div class="cd-icon">
+          <svg width="17" height="17" viewBox="0 0 17 17" fill="none"><path d="M8.5 9a4 4 0 100-8 4 4 0 000 8zM3 15c0-2.761 2.462-5 5.5-5s5.5 2.239 5.5 5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+        </div>
+        <div>
+          <p class="cd-label">Platform</p>
+          <p class="cd-val"><a href="https://eidp.co.za" target="_blank" style="color:var(--sky);text-decoration:none;">eidp.co.za</a> — Onboarding &amp; Savings Calculator</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <form class="contact-form reveal rd2" onsubmit="handleSubmit(event)">
+    <div class="f-row">
+      <div class="fg"><label>First Name</label><input type="text" placeholder="First name"></div>
+      <div class="fg"><label>Last Name</label><input type="text" placeholder="Last name"></div>
+    </div>
+    <div class="fg"><label>Business Name</label><input type="text" placeholder="Company / trading name"></div>
+    <div class="fg"><label>Email Address</label><input type="email" placeholder="work@company.co.za"></div>
+    <div class="fg">
+      <label>Monthly Electricity Spend</label>
+      <select>
+        <option value="" disabled selected>Select an approximate range</option>
+        <option>R 20,000 – R 50,000 / month</option>
+        <option>R 50,000 – R 150,000 / month</option>
+        <option>R 150,000 – R 500,000 / month</option>
+        <option>R 500,000+ / month</option>
+        <option>Not sure — I'd like help calculating</option>
+      </select>
+    </div>
+    <div class="fg"><label>Message</label><textarea rows="4" placeholder="Tell us about your site, industry, or energy question..."></textarea></div>
+    <button type="submit" class="submit-btn">Send Enquiry</button>
+  </form>
+</div>
+
+<!-- FOOTER -->
+<div class="footer-wrap">
+  <footer>
+    <div class="footer-brand">
+      <span class="footer-brand-main">Aethel Energy</span>
+      <span class="footer-brand-sub">Wheeling PPA · South Africa</span>
+    </div>
+    <div>
+      <p class="footer-copy">© 2025 Aethel Energy. All rights reserved.</p>
+      <p class="footer-parent">A division of <a href="#">Aethelwine Homes (Pty) Ltd</a></p>
+    </div>
+    <ul class="footer-links">
+      <li><a href="#wheeling">Wheeling</a></li>
+      <li><a href="#process">Process</a></li>
+      <li><a href="#eidp">EIDP Platform</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="https://eidp.co.za" target="_blank">eidp.co.za ↗</a></li>
+    </ul>
+  </footer>
+</div>
+
+<script>
+// ── Animated Grid / Circuit Canvas ──
+const canvas = document.getElementById('grid-canvas');
+const ctx = canvas.getContext('2d');
+let W, H, nodes = [], pulses = [];
+
+function resize() {
+  W = canvas.width = window.innerWidth;
+  H = canvas.height = window.innerHeight;
+  buildGrid();
+}
+
+function buildGrid() {
+  nodes = [];
+  const cols = Math.ceil(W / 90) + 1;
+  const rows = Math.ceil(H / 90) + 1;
+  for (let r = 0; r < rows; r++) {
+    for (let c = 0; c < cols; c++) {
+      nodes.push({
+        x: c * 90 + (Math.random() - 0.5) * 28,
+        y: r * 90 + (Math.random() - 0.5) * 28,
+        alpha: Math.random() * 0.5 + 0.1
+      });
+    }
+  }
+}
+
+function spawnPulse() {
+  const i = Math.floor(Math.random() * nodes.length);
+  const dirs = [[1,0],[-1,0],[0,1],[0,-1]];
+  const [dx, dy] = dirs[Math.floor(Math.random() * dirs.length)];
+  const cols = Math.ceil(W / 90) + 1;
+  const rows = Math.ceil(H / 90) + 1;
+  const c = i % cols + dx;
+  const r = Math.floor(i / cols) + dy;
+  if (c >= 0 && c < cols && r >= 0 && r < rows) {
+    const j = r * cols + c;
+    if (nodes[j]) {
+      pulses.push({ x: nodes[i].x, y: nodes[i].y, tx: nodes[j].x, ty: nodes[j].y, t: 0, color: Math.random() > 0.5 ? '#2563EB' : '#06B6D4' });
+    }
+  }
+}
+
+let frame2 = 0;
+function draw() {
+  ctx.clearRect(0, 0, W, H);
+  const cols = Math.ceil(W / 90) + 1;
+  // Grid lines
+  ctx.strokeStyle = 'rgba(26,58,143,0.18)';
+  ctx.lineWidth = 0.6;
+  for (let i = 0; i < nodes.length; i++) {
+    const n = nodes[i];
+    const nc = nodes[i + 1];
+    const nd = nodes[i + cols];
+    if (nc && (i % cols) < cols - 1) {
+      ctx.beginPath(); ctx.moveTo(n.x, n.y); ctx.lineTo(nc.x, nc.y); ctx.stroke();
+    }
+    if (nd) {
+      ctx.beginPath(); ctx.moveTo(n.x, n.y); ctx.lineTo(nd.x, nd.y); ctx.stroke();
+    }
+  }
+  // Nodes
+  nodes.forEach(n => {
+    ctx.beginPath(); ctx.arc(n.x, n.y, 1.5, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(59,130,246,${n.alpha})`; ctx.fill();
+  });
+  // Pulses
+  pulses = pulses.filter(p => p.t < 1);
+  pulses.forEach(p => {
+    p.t += 0.018;
+    const x = p.x + (p.tx - p.x) * p.t;
+    const y = p.y + (p.ty - p.y) * p.t;
+    ctx.beginPath(); ctx.arc(x, y, 3, 0, Math.PI * 2);
+    ctx.fillStyle = p.color;
+    ctx.shadowBlur = 10; ctx.shadowColor = p.color;
+    ctx.fill();
+    ctx.shadowBlur = 0;
+  });
+  if (frame2 % 8 === 0 && pulses.length < 25) spawnPulse();
+  frame2++;
+  requestAnimationFrame(draw);
+}
+
+resize();
+draw();
+window.addEventListener('resize', resize);
+
+// ── Nav scroll ──
+const nav = document.getElementById('mainNav');
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 60));
+
+// ── Reveal ──
+const reveals = document.querySelectorAll('.reveal');
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+}, { threshold: 0.1 });
+reveals.forEach(el => obs.observe(el));
+
+// ── Form ──
+function handleSubmit(e) {
+  e.preventDefault();
+  const btn = e.target.querySelector('.submit-btn');
+  btn.textContent = 'Enquiry Received ✓';
+  btn.style.background = 'linear-gradient(135deg,#166534,#16a34a)';
+  setTimeout(() => { btn.textContent = 'Send Enquiry'; btn.style.background = ''; e.target.reset(); }, 3000);
+}
+</script>
+</body>
+</html>
